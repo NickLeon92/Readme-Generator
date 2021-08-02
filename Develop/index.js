@@ -7,10 +7,16 @@ const util = require('util');
 
 
 inquirer.prompt([
-    {
-      type: 'input',
-      name: 'name',
+  {
+    type: 'input',
+    name: 'name',
       message: 'What is your project name?',
+    },
+    {
+      type: 'list',
+      message: 'What is your license?',
+      name: 'license',
+      choices: ['MIT', 'GNU GPLv3', 'Apache License 2.0', 'ISC'],
     },
     {
       type: 'input',
@@ -20,79 +26,114 @@ inquirer.prompt([
     {
       type: 'input',
       message: 'What are the installation instructions?',
-      name: 'instructions',
+      name: 'install',
     },
     {
-      type: 'list',
-      message: 'What is your license?',
-      name: 'license',
-      choices: ['MIT', 'GNU GPLv3', 'Apache License 2.0', 'ISC'],
+      type: 'input',
+      message: 'What are the usage instructions?',
+      name: 'usage',
     },
+    {
+      type: 'input',
+      message: 'Do you have contribution instructions?',
+      name: 'contributing',
+    },
+    {
+      type: 'input',
+      message: 'What tests need to be run?',
+      name: 'test',
+    },
+    {
+      type: 'input',
+      message: 'Enter your GitHub ID:',
+      name: 'github',
+    },
+    {
+      type: 'input',
+      message: 'Enter your email:',
+      name: 'email',
+    },
+    
   ])
-  .then((data) => {
-    fs.writeFile('README.md', 
+  .then((data) => { renderDoc1(data);
+    
+  });
+
+  function renderDoc1(data){
+    fs.writeFile('README.md',
 `# ${data.name}
+`
+, (err) =>
+err ? console.log(err) : renderDoc2(data)
+);}
+      
+function renderDoc2(data){
+if(data.license==='MIT'){
+  fs.appendFile('README.md', 
+`<img src="https://img.shields.io/badge/MIT-license-green">`
+  , (err) =>
+  err ? console.log(err) : renderDoc3(data)
+);}
+if(data.license==='GNU GPLv3'){
+  fs.appendFile('README.md', 
+`<img src="https://img.shields.io/badge/GNU%20GPLv3-license-blue">`
+    , (err) =>
+    err ? console.log(err) : renderDoc3(data)
+);}
+if(data.license==='Apache License 2.0'){
+  fs.appendFile('README.md', 
+`<img src="https://img.shields.io/badge/Apache%20License%202.0-license-red">`
+    , (err) =>
+    err ? console.log(err) : renderDoc3(data)
+);}
+if(data.license==='ISC'){
+  fs.appendFile('README.md', 
+`<img src="https://img.shields.io/badge/ISC-license-purple">`
+    , (err) =>
+    err ? console.log(err) : renderDoc3(data)
+);}
+}
+    
+function renderDoc3(data){
+fs.appendFile('README.md', 
+`
     
 ## DESCRIPTION
     
 ${data.description}
     
     
-##TABLE OF CONTENTS
+## TABLE OF CONTENTS
 - [Installation](#installation)
-- [Credits](#credits)
-- [License](#license)
+- [Usage](#usage)
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
 
+
 ## Installation
     
-${data.instructions}
+${data.install}
 
-  `
+## Usage
+
+${data.usage}
+
+## Contributing
+
+${data.contributing}
+
+## Tests 
+
+${data.test}
+
+## Questions
+
+For further questions reach to me on [GitHub](https://github.com/${data.github})
+or email: ${data.email}
+`
   , (err) =>
   err ? console.log(err) : console.log('Success!')
   );
-  if(data.license==='MIT'){
-  fs.appendFile('README.md', 
-  `
-  <img src="https://img.shields.io/badge/MIT-license-green">`
-  , (err) =>
-  err ? console.log(err) : console.log('Success!')
-  );}
-  if(data.license==='GNU GPLv3'){
-    fs.appendFile('README.md', 
-    `
-    <img src="https://img.shields.io/badge/GNU%20GPLv3-license-blue">`
-    , (err) =>
-    err ? console.log(err) : console.log('Success!')
-  );}
-  if(data.license==='Apache License 2.0'){
-    fs.appendFile('README.md', 
-    `
-    <img src="https://img.shields.io/badge/Apache%20License%202.0-license-red">`
-    , (err) =>
-    err ? console.log(err) : console.log('Success!')
-  );}
-  if(data.license==='ISC'){
-    fs.appendFile('README.md', 
-    `
-    <img src="https://img.shields.io/badge/ISC-license-purple">`
-    , (err) =>
-    err ? console.log(err) : console.log('Success!')
-  );}
-    
-    
-  });
-  
+  }
 
-// TODO: Create a function to write README file
-// const generateDoc = (answers) =>
-// `hey bitch ${answers.name}! dont you know losers know ${answers.stack}!`
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
