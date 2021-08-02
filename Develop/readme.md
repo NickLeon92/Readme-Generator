@@ -1,1 +1,2 @@
-hey bitch nick! dont you know losers know HTML!
+hey bitch nick! dont you know only losers know HTML!
+    but hey nice license
