@@ -22,7 +22,9 @@ npm i
 
 follow prompts on CLI
 
-[DEMO]("https://drive.google.com/file/d/1hrUccNASpQRFWK8K5JB7sjO7RIqu4nmf/view")
+https://user-images.githubusercontent.com/83552236/127946007-63abf62a-9c24-4e97-af0f-e98ea805da34.mp4
+
+
 
 
 ## Contributing
